@@ -7,7 +7,7 @@ using System.Reflection;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.ChangeTracking;
 using Microsoft.Data.Entity.Metadata;
-
+using System.Runtime.InteropServices;
 
 namespace EFAuditing
 {
@@ -17,6 +17,8 @@ namespace EFAuditing
     internal static class AuditLogBuilder
     {
         private const string KeySeperator = ";";
+        [DllImport("rpcrt4.dll", SetLastError = true)]
+        static extern int UuidCreateSequential(out Guid guid);
 
         internal static List<AuditLog> GetAuditLogsForExistingEntities(string userName,
             IEnumerable<EntityEntry> modifiedEntityEntries,
@@ -52,6 +54,9 @@ namespace EFAuditing
         {
             var returnValue = new List<AuditLog>();
             var keyRepresentation = BuildKeyRepresentation(entityEntry, KeySeperator);
+            DateTime RightNow = DateTime.Now;
+            Guid AuditBatchID;
+            UuidCreateSequential(out AuditBatchID);
 
             var auditedPropertyNames =
                 entityEntry.Entity.GetType()
@@ -66,6 +71,7 @@ namespace EFAuditing
                         continue;
                 returnValue.Add(new AuditLog
                 {
+                    AuditBatchId = AuditBatchID,
                     KeyNames = keyRepresentation.Key,
                     KeyValues = keyRepresentation.Value,
                     OriginalValue = entityState != EntityState.Added
@@ -75,7 +81,7 @@ namespace EFAuditing
                         ? Convert.ToString(propertyEntry.CurrentValue)
                         : null,
                     ColumnName = propertyEntry.Metadata.Name,
-                    EventDateTime = DateTime.Now,
+                    EventDateTime = RightNow,
                     EventType = entityState.ToString(),
                     UserName = userName,
                     TableName = entityEntry.Entity.GetType().Name

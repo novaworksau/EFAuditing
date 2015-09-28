@@ -10,7 +10,8 @@ namespace EFAuditing
     {
         [Key]
         public long AuditLogId { get; set; }
-
+               
+        public Guid AuditBatchId { get; set; }
         public string UserName { get; set; }
 
 
