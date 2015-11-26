@@ -1,4 +1,5 @@
 ﻿using EFAuditing.TestHarness;
+using EFAuditing.TestHarness.Helpers;
 using Microsoft.Data.Entity;
 
 namespace EFAuditing.TestHarness
@@ -6,6 +7,7 @@ namespace EFAuditing.TestHarness
     public class TestDbContext : AuditingDbContext
     {
         public TestDbContext()
+            : base(new TestableDbAuditStoreProvider())
         {
             
         }

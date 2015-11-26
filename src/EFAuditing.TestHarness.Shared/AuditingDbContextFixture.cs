@@ -19,9 +19,7 @@ namespace EFAuditing.TestHarness
             _currentUser = Thread.CurrentPrincipal.Identity.Name;
         }
 
-
         
-
 
         [Fact]
         public void ShouldAddData()
