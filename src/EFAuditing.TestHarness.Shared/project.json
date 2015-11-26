@@ -14,8 +14,10 @@
   "commands": {
     "test": "xunit.runner.dnx"
   },
+  "exclude": [
+    "Program.cs"
+  ],
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": { }
+    "dnx451": { }
   }
 }

@@ -209,8 +209,7 @@ namespace EFAuditing
             var result = base.SaveChanges();
 
             auditLogs.AddRange(AuditLogBuilder.GetAuditLogsForAddedEntities(userName, addedEntityEntries));
-            //auditLogs.
-
+            
             if (ExternalProviderSpecified)
             {
                 var task = _externalAuditStoreProvider.WriteAuditLogs(auditLogs);
