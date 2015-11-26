@@ -71,20 +71,13 @@ namespace EFAuditing
                         continue;
                 returnValue.Add(new AuditLog
                 {
-                    AuditBatchId = AuditBatchID,
-                    KeyNames = keyRepresentation.Key,
-                    KeyValues = keyRepresentation.Value,
-                    OriginalValue = entityState != EntityState.Added
-                        ? Convert.ToString(propertyEntry.OriginalValue)
-                        : null,
-                    NewValue = entityState == EntityState.Modified || entityState == EntityState.Added
+                    Differences = entityState == EntityState.Modified || entityState == EntityState.Added
                         ? Convert.ToString(propertyEntry.CurrentValue)
                         : null,
-                    ColumnName = propertyEntry.Metadata.Name,
                     EventDateTime = RightNow,
                     EventType = entityState.ToString(),
                     UserName = userName,
-                    TableName = entityEntry.Entity.GetType().Name
+                    EntityName = entityEntry.Entity.GetType().Name
                 });
             }
             return returnValue;

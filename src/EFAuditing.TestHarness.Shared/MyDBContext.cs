@@ -19,8 +19,7 @@ namespace EFAuditing.TestHarness.Shared
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(
-                "Server=(localdb)\\mssqllocaldb;Database=EFAuditingTestHarness;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseInMemoryDatabase();
         }
     }
 }

@@ -43,7 +43,7 @@ namespace EFAuditing.TestHarness
                 Console.WriteLine($"Audit log contains {auditLogs.Count()} entries.");
                 foreach (var auditLog in myDbContext.GetAuditLogs())
                 {
-                    Console.WriteLine($"AuditLogId:{auditLog.AuditLogId} TableName:{auditLog.TableName} ColumnName:{auditLog.ColumnName} OriginalValue:{auditLog.OriginalValue} NewValue:{auditLog.NewValue} EventDateTime:{auditLog.EventDateTime}");
+                    Console.WriteLine($"AuditLogId:{auditLog.AuditLogId} EntityName:{auditLog.EntityName} Differences:{auditLog.Differences} EventDateTime:{auditLog.EventDateTime}");
                 }
 
                 if (auditLogs.Count() == auditablePropCount)
