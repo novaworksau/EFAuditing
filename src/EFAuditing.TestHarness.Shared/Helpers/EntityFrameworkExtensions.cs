@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EFAuditing.TestHarness.Shared.Helpers
+namespace EFAuditing.TestHarness.Helpers
 {
     public static class EntityFrameworkExtensions
     {

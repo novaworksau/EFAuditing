@@ -77,7 +77,7 @@ namespace EFAuditing
                     EventDateTime = RightNow,
                     EventType = entityState.ToString(),
                     UserName = userName,
-                    EntityName = entityEntry.Entity.GetType().Name
+                    TableName = entityEntry.Entity.GetType().Name
                 });
             }
             return returnValue;

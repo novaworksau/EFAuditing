@@ -1,11 +1,11 @@
-﻿using EFAuditing.TestHarness.Shared.Helpers;
+﻿using EFAuditing.TestHarness.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Threading;
 using Xunit;
 
-namespace EFAuditing.TestHarness.Shared
+namespace EFAuditing.TestHarness
 {
     public class AuditingDbContextFixture
     {

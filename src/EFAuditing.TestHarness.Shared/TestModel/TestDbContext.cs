@@ -1,7 +1,7 @@
-﻿using EFAuditing.TestHarness.Shared;
+﻿using EFAuditing.TestHarness;
 using Microsoft.Data.Entity;
 
-namespace EFAuditing.TestHarness.Shared
+namespace EFAuditing.TestHarness
 {
     public class TestDbContext : AuditingDbContext
     {

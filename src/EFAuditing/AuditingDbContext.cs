@@ -162,7 +162,7 @@ namespace EFAuditing
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AuditLog>(entity => {
-                entity.HasIndex(e => e.EntityName);
+                entity.HasIndex(e => e.TableName);
             });
 
             base.OnModelCreating(modelBuilder);

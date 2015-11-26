@@ -18,7 +18,9 @@ namespace EFAuditing
 
         public string UserName { get; set; }
 
-        public string EntityName { get; set; }
+        public string SchemaName { get; set; }
+
+        public string TableName { get; set; }
 
         public string Differences { get; set; }  
     }

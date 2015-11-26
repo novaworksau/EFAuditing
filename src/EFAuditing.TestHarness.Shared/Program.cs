@@ -2,7 +2,7 @@
 using System;
 using System.Reflection;
 using System.Linq;
-using EFAuditing.TestHarness.Shared;
+using EFAuditing.TestHarness;
 using Microsoft.Data.Entity.Metadata;
 
 namespace EFAuditing.TestHarness

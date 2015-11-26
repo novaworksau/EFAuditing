@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "EFAuditing.TestHarness.Shared Class Library",
+  "description": "EFAuditing.TestHarness Class Library",
   "authors": [ "Johann" ],
   "tags": [ "" ],
   "projectUrl": "",
