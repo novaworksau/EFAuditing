@@ -67,27 +67,22 @@ namespace EFAuditing.SampleExtensions
                     .GetProperties().Where(p => !p.GetCustomAttributes(typeof(DoNotAudit), true).Any())
                     .Select(info => info.Name);
 
-            var differences = new List<Tuple<string, string, string>>();
+            var differences = new List<PropertyDiff>();
 
 
             foreach (var propertyEntry in entityEntry.Metadata.GetProperties()
-               .Where(x => auditedPropertyNames.Contains(x.Name))
-               .Select(property => new { PropertyName = property.Name, Property = entityEntry.Property(property.Name) }))
+                           .Where(x => auditedPropertyNames.Contains(x.Name))
+                           .Select(property => new { PropertyName = property.Name, Property = entityEntry.Property(property.Name) }))
             {
-                if (entityState == EntityState.Modified)
-                {
-                    var originalValue = Convert.ToString(propertyEntry.Property.OriginalValue);
-                    var currentValue = Convert.ToString(propertyEntry.Property.CurrentValue);
+                var originalValue = Convert.ToString(propertyEntry.Property.OriginalValue);
+                var currentValue = Convert.ToString(propertyEntry.Property.CurrentValue);
 
-                    if (originalValue == currentValue) //Values are the same, don't log
-                        continue;
+                if (entityState == EntityState.Modified && originalValue == currentValue) //Values are the same, don't log
+                    continue;
 
-                    var diff = new Tuple<string, string, string>(propertyEntry.PropertyName, originalValue, currentValue);
-
-
-
-                    differences.Add(diff);
-                }
+                var diff = new PropertyDiff { PropertyName = propertyEntry.PropertyName, OriginalValue = originalValue, NewValue = currentValue } ;
+                differences.Add(diff);
+               
             }
             var ser = JsonConvert.SerializeObject(differences);
 
