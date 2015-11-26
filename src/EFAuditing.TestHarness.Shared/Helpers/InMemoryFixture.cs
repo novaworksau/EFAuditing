@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Entity;
+﻿using EFAuditing.SampleExtensions;
+using Microsoft.Data.Entity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace EFAuditing.TestHarness.Helpers
 
 
             services.AddScoped<IExternalAuditStoreProvider, TestableDbAuditStoreProvider>();
+            services.AddScoped<IAuditLogBuilder, CustomAuditLogBuilder>();
 
             _serviceProvider = services.BuildServiceProvider();
 

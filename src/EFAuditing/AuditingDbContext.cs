@@ -22,6 +22,7 @@ namespace EFAuditing
         private readonly string _auditTableName;
         private readonly string _auditSchemaName;
         private readonly IExternalAuditStoreProvider _externalAuditStoreProvider;
+        private readonly IAuditLogBuilder _auditLogBuilder;
 
         private bool ExternalProviderSpecified => _externalAuditStoreProvider != null;
 
@@ -47,9 +48,10 @@ namespace EFAuditing
         ///     method will be called to configure the database (and other options) to be used
         ///     for this context.
         /// </summary>
-        protected AuditingDbContext(IExternalAuditStoreProvider externalAuditStoreProvider)
+        protected AuditingDbContext(IExternalAuditStoreProvider externalAuditStoreProvider, IAuditLogBuilder auditLogBuilder)
         {
             _externalAuditStoreProvider = externalAuditStoreProvider;
+            _auditLogBuilder = auditLogBuilder;
         }
 
         /// <summary>
@@ -204,11 +206,11 @@ namespace EFAuditing
             var modifiedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).ToList();
             var deletedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted).ToList();
 
-            var auditLogs = AuditLogBuilder.GetAuditLogsForExistingEntities(userName, modifiedEntityEntries, deletedEntityEntries);
+            var auditLogs = _auditLogBuilder.GetAuditLogsForExistingEntities(userName, modifiedEntityEntries, deletedEntityEntries);
 
             var result = base.SaveChanges();
 
-            auditLogs.AddRange(AuditLogBuilder.GetAuditLogsForAddedEntities(userName, addedEntityEntries));
+            auditLogs.AddRange(_auditLogBuilder.GetAuditLogsForAddedEntities(userName, addedEntityEntries));
             
             if (ExternalProviderSpecified)
             {

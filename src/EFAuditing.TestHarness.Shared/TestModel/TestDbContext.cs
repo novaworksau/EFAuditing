@@ -1,4 +1,5 @@
-﻿using EFAuditing.TestHarness;
+﻿using EFAuditing.SampleExtensions;
+using EFAuditing.TestHarness;
 using EFAuditing.TestHarness.Helpers;
 using Microsoft.Data.Entity;
 
@@ -6,13 +7,8 @@ namespace EFAuditing.TestHarness
 {
     public class TestDbContext : AuditingDbContext
     {
-        public TestDbContext()
-            : base(new TestableDbAuditStoreProvider())
-        {
-            
-        }
-
-        public TestDbContext(IExternalAuditStoreProvider externalAuditStoreProvider) : base(externalAuditStoreProvider)
+        public TestDbContext(IExternalAuditStoreProvider externalAuditStoreProvider, IAuditLogBuilder auditLogBuilder) 
+            : base(externalAuditStoreProvider, auditLogBuilder)
         {
             
         }

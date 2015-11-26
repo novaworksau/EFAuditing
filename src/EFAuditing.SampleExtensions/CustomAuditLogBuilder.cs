@@ -9,12 +9,12 @@ using Microsoft.Data.Entity.ChangeTracking;
 using Microsoft.Data.Entity.Metadata;
 using System.Runtime.InteropServices;
 
-namespace EFAuditing
+namespace EFAuditing.SampleExtensions
 {
     /// <summary>
     /// The AuditLogBuilder class is used internally by AuditingDbContext.
     /// </summary>
-    public class AuditLogBuilder : IAuditLogBuilder
+    public class CustomAuditLogBuilder : IAuditLogBuilder
     {
         private const string KeySeperator = ";";
         [DllImport("rpcrt4.dll", SetLastError = true)]
@@ -60,13 +60,13 @@ namespace EFAuditing
 
             var auditedPropertyNames =
                 entityEntry.Entity.GetType()
-                    .GetProperties().Where(p => !p.GetCustomAttributes(typeof (DoNotAudit), true).Any())
+                    .GetProperties().Where(p => !p.GetCustomAttributes(typeof(DoNotAudit), true).Any())
                     .Select(info => info.Name);
             foreach (var propertyEntry in entityEntry.Metadata.GetProperties()
                 .Where(x => auditedPropertyNames.Contains(x.Name))
                 .Select(property => entityEntry.Property(property.Name)))
             {
-                if(entityState == EntityState.Modified)
+                if (entityState == EntityState.Modified)
                     if (Convert.ToString(propertyEntry.OriginalValue) == Convert.ToString(propertyEntry.CurrentValue)) //Values are the same, don't log
                         continue;
                 returnValue.Add(new AuditLog
