@@ -25,16 +25,18 @@ namespace EFAuditing.SampleExtensions
             IEnumerable<EntityEntry> deletedEntityEntries)
         {
             var auditLogs = new List<AuditLog>();
-            foreach (
-                var auditRecordsForEntityEntry in
-                    modifiedEntityEntries.Select(
+            foreach (var auditRecordsForEntityEntry in modifiedEntityEntries.Select(
                         changedEntity => GetAuditLogs(changedEntity, userName, EntityState.Modified)))
+            { 
                 auditLogs.AddRange(auditRecordsForEntityEntry);
-            foreach (
-                var auditRecordsForEntityEntry in
-                    deletedEntityEntries.Select(
+            }
+
+            foreach (var auditRecordsForEntityEntry in deletedEntityEntries.Select(
                         changedEntity => GetAuditLogs(changedEntity, userName, EntityState.Deleted)))
+            { 
                 auditLogs.AddRange(auditRecordsForEntityEntry);
+            }
+
             return auditLogs;
         }
 
@@ -42,18 +44,19 @@ namespace EFAuditing.SampleExtensions
             IEnumerable<EntityEntry> addedEntityEntries)
         {
             var auditLogs = new List<AuditLog>();
-            foreach (
-                var auditRecordsForEntityEntry in
-                    addedEntityEntries.Select(
+            foreach (var auditRecordsForEntityEntry in addedEntityEntries.Select(
                         changedEntity => GetAuditLogs(changedEntity, userName, EntityState.Added)))
+            { 
                 auditLogs.AddRange(auditRecordsForEntityEntry);
+            }
+
             return auditLogs;
         }
 
-        private static IEnumerable<AuditLog> GetAuditLogs(EntityEntry entityEntry, string userName, EntityState entityState)
+        private static IEnumerable<CustomAuditLog> GetAuditLogs(EntityEntry entityEntry, string userName, EntityState entityState)
         {
-            var returnValue = new List<AuditLog>();
-            var keyRepresentation = BuildKeyRepresentation(entityEntry, KeySeperator);
+            var returnValue = new List<CustomAuditLog>();
+            // var keyRepresentation = BuildKeyRepresentation(entityEntry, KeySeperator);
             DateTime RightNow = DateTime.Now;
             Guid AuditBatchID;
             UuidCreateSequential(out AuditBatchID);
@@ -62,52 +65,36 @@ namespace EFAuditing.SampleExtensions
                 entityEntry.Entity.GetType()
                     .GetProperties().Where(p => !p.GetCustomAttributes(typeof(DoNotAudit), true).Any())
                     .Select(info => info.Name);
+
+            var differences = new List<Tuple<string, string, string>>();
+
+
             foreach (var propertyEntry in entityEntry.Metadata.GetProperties()
                 .Where(x => auditedPropertyNames.Contains(x.Name))
-                .Select(property => entityEntry.Property(property.Name)))
+                .Select(property => new { PropertyName = property.Name, Property = entityEntry.Property(property.Name) }))
             {
                 if (entityState == EntityState.Modified)
-                    if (Convert.ToString(propertyEntry.OriginalValue) == Convert.ToString(propertyEntry.CurrentValue)) //Values are the same, don't log
-                        continue;
-                returnValue.Add(new AuditLog
                 {
-                    Differences = entityState == EntityState.Modified || entityState == EntityState.Added
-                        ? Convert.ToString(propertyEntry.CurrentValue)
-                        : null,
-                    EventDateTime = RightNow,
-                    EventType = entityState.ToString(),
-                    UserName = userName,
-                    TableName = entityEntry.Entity.GetType().Name
-                });
+                    var originalValue = Convert.ToString(propertyEntry.Property.OriginalValue);
+                    var currentValue = Convert.ToString(propertyEntry.Property.CurrentValue);
+
+                    if (originalValue == currentValue) //Values are the same, don't log
+                        continue;
+
+                    differences.Add(new Tuple<string, string, string>(propertyEntry.PropertyName, originalValue, currentValue));
+                }
             }
+
+
+            returnValue.Add(new CustomAuditLog
+            {
+                Differences = differences,
+                EventDateTime = RightNow,
+                EventType = entityState.ToString(),
+                UserName = userName,
+                TableName = entityEntry.Entity.GetType().Name
+            });
             return returnValue;
-        }
-
-
-        private static KeyValuePair<string, string> BuildKeyRepresentation(EntityEntry entityEntry, string seperator)
-        {
-            var keyProperties = entityEntry.Metadata.GetProperties().Where(x => x.IsPrimaryKey()).ToList();
-            if (keyProperties == null)
-                throw new ArgumentException("No key found in");
-            var keyPropertyEntries =
-                keyProperties.Select(keyProperty => entityEntry.Property(keyProperty.Name)).ToList();
-            var keyNameString = new StringBuilder();
-            foreach (var keyProperty in keyProperties)
-            {
-                keyNameString.Append(keyProperty.Name);
-                keyNameString.Append(seperator);
-            }
-            keyNameString.Remove(keyNameString.Length - 1, 1);
-            var keyValueString = new StringBuilder();
-            foreach (var keyPropertyEntry in keyPropertyEntries)
-            {
-                keyValueString.Append(keyPropertyEntry.CurrentValue);
-                keyValueString.Append(seperator);
-            }
-            keyValueString.Remove(keyValueString.Length - 1, 1);
-            var key = keyNameString.ToString();
-            var value = keyValueString.ToString();
-            return new KeyValuePair<string, string>(key, value);
         }
     }
 }

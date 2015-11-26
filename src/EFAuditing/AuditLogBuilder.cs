@@ -52,7 +52,7 @@ namespace EFAuditing
 
         private static IEnumerable<AuditLog> GetAuditLogs(EntityEntry entityEntry, string userName, EntityState entityState)
         {
-            var returnValue = new List<AuditLog>();
+            var returnValue = new List<PropertyLevelAuditLog>();
             var keyRepresentation = BuildKeyRepresentation(entityEntry, KeySeperator);
             DateTime RightNow = DateTime.Now;
             Guid AuditBatchID;
@@ -69,11 +69,18 @@ namespace EFAuditing
                 if(entityState == EntityState.Modified)
                     if (Convert.ToString(propertyEntry.OriginalValue) == Convert.ToString(propertyEntry.CurrentValue)) //Values are the same, don't log
                         continue;
-                returnValue.Add(new AuditLog
+                returnValue.Add(new PropertyLevelAuditLog
                 {
-                    Differences = entityState == EntityState.Modified || entityState == EntityState.Added
+                    AuditBatchId = AuditBatchID,
+                    KeyNames = keyRepresentation.Key,
+                    KeyValues = keyRepresentation.Value,
+                    OriginalValue = entityState != EntityState.Added
+                        ? Convert.ToString(propertyEntry.OriginalValue)
+                        : null,
+                    NewValue = entityState == EntityState.Modified || entityState == EntityState.Added
                         ? Convert.ToString(propertyEntry.CurrentValue)
                         : null,
+                    ColumnName = propertyEntry.Metadata.Name,
                     EventDateTime = RightNow,
                     EventType = entityState.ToString(),
                     UserName = userName,
