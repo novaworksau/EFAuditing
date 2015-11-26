@@ -9,7 +9,6 @@ namespace EFAuditing
 {
     public class CustomAuditLog : AuditLog
     {
-        
-        public new List<Tuple<string, string, string>> Differences { get; set; }  
+        public string Differences { get; set; }  
     }
 }

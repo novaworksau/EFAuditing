@@ -5,7 +5,7 @@ using Microsoft.Data.Entity;
 
 namespace EFAuditing.TestHarness
 {
-    public class TestDbContext : AuditingDbContext
+    public class TestDbContext : AuditingDbContext<CustomAuditLog>
     {
         public TestDbContext(IExternalAuditStoreProvider externalAuditStoreProvider, IAuditLogBuilder auditLogBuilder) 
             : base(externalAuditStoreProvider, auditLogBuilder)

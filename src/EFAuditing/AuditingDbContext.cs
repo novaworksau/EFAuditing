@@ -14,7 +14,7 @@ namespace EFAuditing
     ///     the database and can be used to query and save instances of your entities. 
     ///     DbContext is a combination of the Unit Of Work and Repository patterns.
     /// </summary>
-    public abstract class AuditingDbContext : DbContext
+    public abstract class AuditingDbContext<T> : DbContext where T : AuditLog
     {
         private const string DefaultAuditTableName = "AuditLogs";
         private const string DefaultAuditSchemaName = "audit";
@@ -163,7 +163,7 @@ namespace EFAuditing
         ///             </param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AuditLog>(entity => {
+            modelBuilder.Entity<T>(entity => {
                 entity.HasIndex(e => e.TableName);
             });
 
@@ -185,7 +185,7 @@ namespace EFAuditing
         public static void ConfigureModelBuilder(ModelBuilder modelBuilder, string auditTableName,
             string auditSchemaName)
         {
-            modelBuilder.Entity<AuditLog>().ToTable(auditTableName, schema: auditSchemaName);
+            modelBuilder.Entity<T>().ToTable(auditTableName, schema: auditSchemaName);
         }
 
         /// <summary>

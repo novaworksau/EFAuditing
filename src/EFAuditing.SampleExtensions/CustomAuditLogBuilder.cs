@@ -8,6 +8,7 @@ using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.ChangeTracking;
 using Microsoft.Data.Entity.Metadata;
 using System.Runtime.InteropServices;
+using Newtonsoft.Json;
 
 namespace EFAuditing.SampleExtensions
 {
@@ -70,8 +71,8 @@ namespace EFAuditing.SampleExtensions
 
 
             foreach (var propertyEntry in entityEntry.Metadata.GetProperties()
-                .Where(x => auditedPropertyNames.Contains(x.Name))
-                .Select(property => new { PropertyName = property.Name, Property = entityEntry.Property(property.Name) }))
+               .Where(x => auditedPropertyNames.Contains(x.Name))
+               .Select(property => new { PropertyName = property.Name, Property = entityEntry.Property(property.Name) }))
             {
                 if (entityState == EntityState.Modified)
                 {
@@ -81,14 +82,18 @@ namespace EFAuditing.SampleExtensions
                     if (originalValue == currentValue) //Values are the same, don't log
                         continue;
 
-                    differences.Add(new Tuple<string, string, string>(propertyEntry.PropertyName, originalValue, currentValue));
+                    var diff = new Tuple<string, string, string>(propertyEntry.PropertyName, originalValue, currentValue);
+
+
+
+                    differences.Add(diff);
                 }
             }
-
+            var ser = JsonConvert.SerializeObject(differences);
 
             returnValue.Add(new CustomAuditLog
             {
-                Differences = differences,
+                Differences = ser,
                 EventDateTime = RightNow,
                 EventType = entityState.ToString(),
                 UserName = userName,
