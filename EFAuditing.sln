@@ -7,7 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F4BE06D6-385
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C3588E35-A33E-4B8E-B85A-88E3B406F3BD}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		build.cmd = build.cmd
 		global.json = global.json
+		makefile.shade = makefile.shade
 		NuGet.Config = NuGet.Config
 	EndProjectSection
 EndProject
@@ -15,7 +18,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EFAuditing", "src\EFAuditin
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EFAuditing.SampleExtensions", "src\EFAuditing.SampleExtensions\EFAuditing.SampleExtensions.xproj", "{47146269-2F80-4131-9349-4DCB7EF2293F}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EFAuditing.TestHarness", "src\EFAuditing.TestHarness\EFAuditing.TestHarness.xproj", "{EEF76714-3C80-4BA6-A12A-4907832F449F}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EFAuditing.TestHarness", "test\EFAuditing.TestHarness\EFAuditing.TestHarness.xproj", "{EEF76714-3C80-4BA6-A12A-4907832F449F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
