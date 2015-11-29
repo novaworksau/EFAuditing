@@ -1,0 +1,23 @@
+version: "1.0.0-beta-{build}"
+configuration:
+  - Release
+
+init:
+  - git config --global core.autocrlf input
+
+test: off
+
+build_script:
+  - set K_BUILD_VERSION=%APPVEYOR_BUILD_NUMBER%
+  - set K_BUILD_VERSION=%K_BUILD_VERSION:~-4%
+  - echo %APPVEYOR%
+  - echo %APPVEYOR_REPO_TAG%
+  - echo %APPVEYOR_REPO_BRANCH%
+  - echo %K_BUILD_VERSION%
+  - echo %APPVEYOR_BUILD_VERSION%
+  - build.cmd --quiet verify
+
+artifacts:
+  - path: artifacts\build\*.nupkg
+
+deploy: off
