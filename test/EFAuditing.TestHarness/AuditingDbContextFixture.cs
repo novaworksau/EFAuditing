@@ -28,7 +28,7 @@ namespace EFAuditing.TestHarness
             using (var db = _provider.GetService<TestDbContext>())
             {
                 // Arrange
-                db.SeedTestData();
+                // db.SeedTestData();
                 //var expectedCount = 5;
 
                 //// Act
