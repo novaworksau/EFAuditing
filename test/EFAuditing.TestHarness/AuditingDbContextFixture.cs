@@ -52,8 +52,7 @@ namespace EFAuditing.TestHarness
                 // Arrange
                 db.SeedTestData();
                 var expectedCount = 4;
-
-
+                
                 // Act
                 var actualCount = db.Customers.Count();
 

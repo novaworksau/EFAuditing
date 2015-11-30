@@ -7,34 +7,34 @@ using Xunit;
 
 namespace EFAuditing.TestHarness
 {
-    public class TestableProviderFixture
-    {
-        protected IServiceProvider _provider = null;
+    //public class TestableProviderFixture
+    //{
+    //    protected IServiceProvider _provider = null;
         
-        public TestableProviderFixture()
-        {
-            var fixture = new InMemoryFixture();
-            _provider = fixture.GetServiceProvider();
-        }
+    //    public TestableProviderFixture()
+    //    {
+    //        var fixture = new InMemoryFixture();
+    //        _provider = fixture.GetServiceProvider();
+    //    }
 
 
-        [Fact]
-        public void ShouldInjectProvider()
-        {
-            using (var db = _provider.GetService<TestDbContext>())
-            {
-                // Arrange
-                var storeProvider = _provider.GetService<IExternalAuditStoreProvider>();
-                db.SeedTestData();
-                var expectedCount = 4;
+    //    [Fact]
+    //    public void ShouldInjectProvider()
+    //    {
+    //        using (var db = _provider.GetService<TestDbContext>())
+    //        {
+    //            // Arrange
+    //            var storeProvider = _provider.GetService<IExternalAuditStoreProvider>();
+    //            db.SeedTestData();
+    //            var expectedCount = 4;
 
-                // Act
-                var actualCount = storeProvider.ReadAuditLogs().Count();
+    //            // Act
+    //            var actualCount = storeProvider.ReadAuditLogs().Count();
 
-                // Assert
-                Assert.Equal(expectedCount, actualCount);
-            }
-        }
+    //            // Assert
+    //            Assert.Equal(expectedCount, actualCount);
+    //        }
+    //    }
 
-    }
+    //}
 }
