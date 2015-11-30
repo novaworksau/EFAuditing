@@ -22,13 +22,11 @@ namespace EFAuditing.TestHarness.Helpers
                 .AddDbContext<TestDbContext>(options =>
                     options.UseInMemoryDatabase()
                 );
-
-
+            
             services.AddScoped<IExternalAuditStoreProvider, TestableDbAuditStoreProvider>();
             services.AddScoped<IAuditLogBuilder, CustomAuditLogBuilder>();
 
             _serviceProvider = services.BuildServiceProvider();
-
         }
 
         public IServiceProvider GetServiceProvider()
