@@ -13,10 +13,10 @@ namespace EFAuditing.TestHarness.Helpers
             {
                 // refer: https://en.wikipedia.org/wiki/Contoso#Contoso_employees
                 dbContext.Customers.AddRange(
-                    new Customer { CustomerId = 1, FirstName = "Ellen", LastName = "Adams" },
-                    new Customer { CustomerId = 2, FirstName = "Lisa", LastName = "Andrews" },
-                    new Customer { CustomerId = 3, FirstName = "Allen", LastName = "Brewer" },
-                    new Customer { CustomerId = 4, FirstName = "Percy", LastName = "Bowman" }
+                    new Customer { FirstName = "Ellen", LastName = "Adams" },
+                    new Customer { FirstName = "Lisa", LastName = "Andrews" },
+                    new Customer { FirstName = "Allen", LastName = "Brewer" },
+                    new Customer { FirstName = "Percy", LastName = "Bowman" }
                     );
 
                 dbContext.SaveChanges("dneimke");

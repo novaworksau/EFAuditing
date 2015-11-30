@@ -37,6 +37,7 @@ namespace EFAuditing.TestHarness
             }
         }
 
+
         [Fact]
         public void ShouldAddData()
         {
