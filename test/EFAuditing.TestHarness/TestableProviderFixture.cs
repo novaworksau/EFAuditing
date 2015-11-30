@@ -36,5 +36,11 @@ namespace EFAuditing.TestHarness
                 Assert.Equal(expectedCount, actualCount);
             }
         }
+
+        [Fact]
+        public void Foo()
+        {
+            Assert.True(true);
+        }
     }
 }
