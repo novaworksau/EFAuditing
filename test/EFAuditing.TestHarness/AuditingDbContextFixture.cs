@@ -23,32 +23,25 @@ namespace EFAuditing.TestHarness
         }
 
         [Fact]
-        public void Foo()
+        public void ShouldAddData()
         {
-            Assert.True(true);
+            using (var db = _provider.GetService<TestDbContext>())
+            {
+                // Arrange
+                db.SeedTestData();
+                //var expectedCount = 5;
+
+                //// Act
+                //var customer = new Customer { CustomerId = 5, FirstName = "Misty", LastName = "Shock" };
+                //db.Customers.Add(customer);
+                //db.SaveChanges(_currentUser);
+                //var actualCount = db.Customers.Count();
+
+                //// Assert
+                //Assert.Equal(expectedCount, actualCount);
+                Assert.True(true);
+            }
         }
-
-
-
-        //    [Fact]
-        //    public void ShouldAddData()
-        //    {
-        //        using (var db = _provider.GetService<TestDbContext>())
-        //        {
-        //            // Arrange
-        //            db.SeedTestData();
-        //            var expectedCount = 5;
-
-        //            // Act
-        //            var customer = new Customer { CustomerId = 5, FirstName = "Misty", LastName = "Shock" };
-        //            db.Customers.Add(customer);
-        //            db.SaveChanges(_currentUser);
-        //            var actualCount = db.Customers.Count();
-
-        //            // Assert
-        //            Assert.Equal(expectedCount, actualCount);
-        //        }
-        //    }
 
 
         //    [Fact]
