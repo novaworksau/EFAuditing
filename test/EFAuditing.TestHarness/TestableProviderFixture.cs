@@ -9,15 +9,12 @@ namespace EFAuditing.TestHarness
 {
     public class TestableProviderFixture
     {
-
         protected IServiceProvider _provider = null;
-        protected string _currentUser = null;
-
+        
         public TestableProviderFixture()
         {
             var fixture = new InMemoryFixture();
             _provider = fixture.GetServiceProvider();
-            _currentUser = Thread.CurrentPrincipal.Identity.Name;
         }
 
 
