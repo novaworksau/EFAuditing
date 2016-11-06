@@ -8,7 +8,9 @@ namespace EFAuditing.SampleExtensions
     public class PropertyDiff
     {
         public string PropertyName { get; set; }
-        public string OriginalValue { get; set; }
-        public string NewValue { get; set; }
+
+        public string previousValue { get; set; }
+
+        public string newValue { get; set; }
     }
 }

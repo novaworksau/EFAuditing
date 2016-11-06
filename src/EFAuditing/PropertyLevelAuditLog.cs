@@ -7,11 +7,7 @@ namespace EFAuditing
 {
     public class PropertyLevelAuditLog : AuditLog
     {
-        public Guid AuditBatchId { get; set; }
-
         public string KeyNames { get; set; }
-
-        public string KeyValues { get; set; }
 
         public string ColumnName { get; set; }
 

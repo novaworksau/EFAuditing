@@ -120,6 +120,14 @@ namespace EFAuditing
 
         #endregion
 
+        /// <summary>
+        /// Logging DbSets
+        /// </summary>
+
+        public DbSet<AuditLog> AuditLog { get; set; }
+
+        public DbSet<PropertyLevelAuditLog> PropertyLevelAuditLog { get; set; }
+
         #region Obsolete Base Members
 
         [Obsolete("A UserName is required. Use SaveChanges(string userName) instead.")]
@@ -200,18 +208,23 @@ namespace EFAuditing
         /// <returns>
         /// The number of state entries written to the underlying database.
         /// </returns>
-        public virtual int SaveChanges(string userName)
+        public override int SaveChanges()
         {
+            //change to Novaworks Identity User
+            string userName = "testUser";
             var addedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Added).ToList();
             var modifiedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).ToList();
             var deletedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted).ToList();
 
-            var auditLogs = _auditLogBuilder.GetAuditLogsForExistingEntities(userName, modifiedEntityEntries, deletedEntityEntries);
+            //if is softdelete than deleted entities will get store using the updateAuditLogsForexiting.... else deleteAuditLogsForExisting...
+            var auditLogs = _auditLogBuilder.GetAuditLogsForExistingEntities(userName, modifiedEntityEntries);
 
             var result = base.SaveChanges();
 
             auditLogs.AddRange(_auditLogBuilder.GetAuditLogsForAddedEntities(userName, addedEntityEntries));
-            
+
+            auditLogs.AddRange(_auditLogBuilder.GetAuditLogsForDeletedEntities(userName, deletedEntityEntries));
+
             if (ExternalProviderSpecified)
             {
                 var task = _externalAuditStoreProvider.WriteAuditLogs(auditLogs);

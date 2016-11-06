@@ -11,7 +11,9 @@ namespace EFAuditing
     {
         [Key]
         public long AuditLogId { get; set; }
-        
+
+        public Guid AuditBatchId { get; set; }
+
         public string UserName { get; set; }
 
         [Column("EventDateTime", TypeName = "datetime2(3)")]
@@ -19,8 +21,10 @@ namespace EFAuditing
 
         public string EventType { get; set; }
 
-        public string SchemaName { get; set; }
+        public string EntityId { get; set; }
 
         public string TableName { get; set; }
+
+        public string Differences { get; set; }
     }
 }
