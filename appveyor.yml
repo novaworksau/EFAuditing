@@ -35,7 +35,7 @@ deploy:
 #      configuration: Release
 #      appveyor_repo_tag: false # do not deploy to this feed on tag push
 
-environment:
+#environment:
 #  nuget_user: oconicsci
 #  nuget_password:
 #     secure: Xo8KvyMsnePdmUCFmvQjMiNdAyc6qThdZukA+h+herA=
