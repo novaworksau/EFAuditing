@@ -24,16 +24,16 @@ artifacts:
   - path: artifacts\*.nupkg
 
 deploy:
-#  - provider: NuGet
-#    server: https://novaworks.myget.org/F/parliament-ci/api/v2/package
-#    api_key:
-#      secure: 8CsS42Ic+vTW/DhHUAJ5KreTtOCnHDvzPwLJebjUQelchOvjhskEZFJ4EIR9tV3F
-#    skip_symbols: false
-#    symbol_server: https://novaworks.myget.org/F/parliament-ci/symbols/api/v2/package
-#    artifact: /.*\.nupkg/
-#    on:
-#      configuration: Release
-#      appveyor_repo_tag: false # do not deploy to this feed on tag push
+  - provider: NuGet
+    server: https://novaworks.myget.org/F/parliament-ci/api/v2/package
+    api_key:
+      secure: 8CsS42Ic+vTW/DhHUAJ5KreTtOCnHDvzPwLJebjUQelchOvjhskEZFJ4EIR9tV3F
+    skip_symbols: false
+    symbol_server: https://novaworks.myget.org/F/parliament-ci/symbols/api/v2/package
+    artifact: /.*\.nupkg/
+    on:
+      configuration: Release
+      appveyor_repo_tag: false # do not deploy to this feed on tag push
 
 #environment:
 #  nuget_user: oconicsci
