@@ -9,6 +9,7 @@ init:
 test: off
 
 before_build:
+  - ps: .\Set-PackageLabel.ps1
   - dotnet restore -v minimal
 
 build:
@@ -18,7 +19,6 @@ build:
 
 after_build:
   - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts .\src\EFAuditing\project.json
-
 
 artifacts:
   - path: artifacts\*.nupkg
