@@ -17,7 +17,7 @@ build:
   verbosity: minimal
 
 after_build:
-  - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts project.json
+  - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts 
 
 
 artifacts:
