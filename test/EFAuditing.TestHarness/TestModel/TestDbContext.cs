@@ -1,7 +1,7 @@
 ﻿using EFAuditing.SampleExtensions;
 using EFAuditing.TestHarness;
 using EFAuditing.TestHarness.Helpers;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFAuditing.TestHarness
 {

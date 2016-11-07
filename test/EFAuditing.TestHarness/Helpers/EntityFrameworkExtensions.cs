@@ -19,7 +19,7 @@ namespace EFAuditing.TestHarness.Helpers
                     new Customer { FirstName = "Percy", LastName = "Bowman" }
                     );
 
-                dbContext.SaveChanges("dneimke");
+                dbContext.SaveChanges();
             }
         }
     }

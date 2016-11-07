@@ -1,5 +1,6 @@
 ﻿using EFAuditing.SampleExtensions;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace EFAuditing.TestHarness.Helpers
 
             services
                 .AddEntityFramework()
-                .AddInMemoryDatabase()
+                //.AddInMemoryDatabase()
                 .AddDbContext<TestDbContext>(options =>
                     options.UseInMemoryDatabase()
                 );

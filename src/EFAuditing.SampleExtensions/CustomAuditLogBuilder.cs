@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 // ReSharper disable once RedundantUsingDirective Since GetProperties Need this for dnxcore50
 using System.Reflection;
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.ChangeTracking;
-using Microsoft.Data.Entity.Metadata;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 
@@ -80,7 +79,7 @@ namespace EFAuditing.SampleExtensions
                 if (entityState == EntityState.Modified && originalValue == currentValue) //Values are the same, don't log
                     continue;
 
-                var diff = new PropertyDiff { PropertyName = propertyEntry.PropertyName, OriginalValue = originalValue, NewValue = currentValue } ;
+                var diff = new PropertyDiff { PropertyName = propertyEntry.PropertyName, previousValue = originalValue, newValue = currentValue } ;
                 differences.Add(diff);
                
             }
@@ -95,6 +94,16 @@ namespace EFAuditing.SampleExtensions
                 TableName = entityEntry.Entity.GetType().Name
             });
             return returnValue;
+        }
+
+        public List<AuditLog> GetAuditLogsForDeletedEntities(string userName, IEnumerable<EntityEntry> deletedEntityEntries)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<AuditLog> GetAuditLogsForExistingEntities(string userName, IEnumerable<EntityEntry> modifiedEntityEntries)
+        {
+            throw new NotImplementedException();
         }
     }
 }

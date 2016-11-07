@@ -6,11 +6,10 @@
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "xunit": "2.1.0-*",
-    "xunit.runner.dnx": "2.1.0-*",
-    "EntityFramework.InMemory": "7.0.0-*",
     "EFAuditing": "1.0.6",
-    "EFAuditing.SampleExtensions": "1.0.0-*"
+    "EFAuditing.SampleExtensions": "1.0.0-*",
+    "Microsoft.EntityFrameworkCore.InMemory": "1.0.1",
+    "xunit": "2.1.0"
   },
   "commands": {
     "test": "xunit.runner.dnx"

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Data.Entity.ChangeTracking;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace EFAuditing
 {

@@ -34,7 +34,7 @@ namespace EFAuditing.TestHarness
                 //// Act
                 var customer = new Customer { CustomerId = 5, FirstName = "Misty", LastName = "Shock" };
                 db.Customers.Add(customer);
-                db.SaveChanges(_currentUser);
+                db.SaveChanges();
                 var actualCount = db.Customers.Count();
 
                 //// Assert
@@ -75,7 +75,7 @@ namespace EFAuditing.TestHarness
                 // Act
                 var cust = db.Customers.FirstOrDefault();
                 db.Customers.Remove(cust);
-                db.SaveChanges(_currentUser);
+                db.SaveChanges();
                 var actualCount = db.Customers.Count();
 
                 // Assert
@@ -95,7 +95,7 @@ namespace EFAuditing.TestHarness
                 // Act
                 var customer = new Customer { CustomerId = 5, FirstName = "Misty", LastName = "Shock" };
                 db.Customers.Add(customer);
-                db.SaveChanges(_currentUser);
+                db.SaveChanges();
                 var auditLogs = db.GetAuditLogs().ToList();
                 var first = auditLogs.FirstOrDefault() as CustomAuditLog;
 

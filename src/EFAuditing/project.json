@@ -9,8 +9,9 @@
   "version": "1.0.6",
 
   "dependencies": {
-    "EntityFramework.Core": "7.0.0-*",
-    "EntityFramework.Relational": "7.0.0-*"
+    "Microsoft.EntityFrameworkCore": "1.0.1",
+    "Microsoft.EntityFrameworkCore.Relational": "1.0.0",
+    "Newtonsoft.Json": "9.0.1"
   },
 
   "description": "A package that implements Auditing for Entity Framework 7 based DbContexts. It is extensible to allow other logging providers like MongoDB, Azure tables etc.\nJust inherit AuditingDbContext from your application's DbContext and use the overloaded SaveChange(string userName) instead of the standard SaveChanges().",

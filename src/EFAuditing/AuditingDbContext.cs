@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Linq;
 
 namespace EFAuditing
@@ -92,9 +92,6 @@ namespace EFAuditing
         ///     method will still be called to allow further configuration of the options.
         /// </summary>
         /// <param name="serviceProvider">The service provider to be used.</param>
-        protected AuditingDbContext(IServiceProvider serviceProvider) : base(serviceProvider)
-        {
-        }
 
         /// <summary>
         ///     Initializes a new instance of the AuditingDbContext class (Extends Microsoft.Data.Entity.DbContext) using
@@ -113,10 +110,6 @@ namespace EFAuditing
         /// </summary>
         /// <param name="serviceProvider">The service provider to be used.</param>
         /// <param name="options">The options for this context.</param>
-        protected AuditingDbContext(IServiceProvider serviceProvider, DbContextOptions options)
-            : base(serviceProvider, options)
-        {
-        }
 
         #endregion
 
@@ -130,33 +123,33 @@ namespace EFAuditing
 
         #region Obsolete Base Members
 
-        [Obsolete("A UserName is required. Use SaveChanges(string userName) instead.")]
-        public new int SaveChanges()
-        {
-            throw new InvalidOperationException("A UserName is required. Use SaveChanges(string userName) instead.");
-        }
+        //[Obsolete("A UserName is required. Use SaveChanges(string userName) instead.")]
+        //public new int SaveChanges()
+        //{
+        //    throw new InvalidOperationException("A UserName is required. Use SaveChanges(string userName) instead.");
+        //}
 
-        [Obsolete("A UserName is required. Use SaveChanges(string userName) instead.")]
-        public new int SaveChanges(bool acceptAllChangesOnSuccess)
-        {
-            throw new InvalidOperationException("A UserName is required. Use SaveChanges(string userName) instead.");
-        }
+        //[Obsolete("A UserName is required. Use SaveChanges(string userName) instead.")]
+        //public new int SaveChanges(bool acceptAllChangesOnSuccess)
+        //{
+        //    throw new InvalidOperationException("A UserName is required. Use SaveChanges(string userName) instead.");
+        //}
 
 
-        [Obsolete("A UserName is required. Use SaveChangesAsync(userName, cancellationToken) instead.")]
-        public new Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
-        {
-            throw new InvalidOperationException(
-                "A UserName is required. Use SaveChangesAsync(userName, cancellationToken) instead.");
-        }
+        //[Obsolete("A UserName is required. Use SaveChangesAsync(userName, cancellationToken) instead.")]
+        //public new Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        //{
+        //    throw new InvalidOperationException(
+        //        "A UserName is required. Use SaveChangesAsync(userName, cancellationToken) instead.");
+        //}
 
-        [Obsolete("A UserName is required. Use SaveChangesAsync(userName, cancellationToken) instead.")]
-        public new Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
-            CancellationToken cancellationToken = default(CancellationToken))
-        {
-            throw new InvalidOperationException(
-                "A UserName is required. Use SaveChangesAsync(userName, cancellationToken) instead.");
-        }
+        //[Obsolete("A UserName is required. Use SaveChangesAsync(userName, cancellationToken) instead.")]
+        //public new Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
+        //    CancellationToken cancellationToken = default(CancellationToken))
+        //{
+        //    throw new InvalidOperationException(
+        //        "A UserName is required. Use SaveChangesAsync(userName, cancellationToken) instead.");
+        //}
 
         #endregion
 
@@ -208,10 +201,13 @@ namespace EFAuditing
         /// <returns>
         /// The number of state entries written to the underlying database.
         /// </returns>
+        /// 
+
+
         public override int SaveChanges()
         {
             //change to Novaworks Identity User
-            string userName = "testUser";
+            string userName = "Change This User With NovaworksCurrentUser";
             var addedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Added).ToList();
             var modifiedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).ToList();
             var deletedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted).ToList();

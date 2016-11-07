@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 // ReSharper disable once RedundantUsingDirective Since GetProperties Need this for dnxcore50
 using System.Reflection;
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.ChangeTracking;
-using Microsoft.Data.Entity.Metadata;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System.Runtime.InteropServices;
+using Newtonsoft.Json;
 
 namespace EFAuditing
 {

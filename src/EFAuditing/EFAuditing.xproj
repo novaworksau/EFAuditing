@@ -9,7 +9,7 @@
     <ProjectGuid>453b5445-98b1-4e3d-b2a2-ecebfb8b75cf</ProjectGuid>
     <RootNamespace>EFAuditing</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\..\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
-    <OutputPath Condition="'$(OutputPath)'=='' ">..\..\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
+    <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>
     <SccProjectName>
     </SccProjectName>
     <SccProvider>
