@@ -15,14 +15,13 @@ namespace EFAuditing.TestHarness
 
         protected IServiceProvider _provider = null;
         protected string _currentUser = null;
-        List<AuditLog> _auditLogList;
+        
 
         public DoNotAuditEntityFixture()
         {
             var fixture = new InMemoryFixture();
             _provider = fixture.GetServiceProvider();
             _currentUser = "tsmith"; // Thread.CurrentPrincipal.Identity.Name;
-            _auditLogList = new List<AuditLog>();
         }
 
         [Fact]
@@ -40,10 +39,9 @@ namespace EFAuditing.TestHarness
 
                 //Act
                 var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
-                _auditLogList.AddRange(result);
-
+                
                 //Assert
-                Assert.Equal(1, _auditLogList.Count());//this should pass as 2 values are changed and one has the [donotlog] attribute so it wont be logged
+                Assert.Equal(1, result.Count());//this should pass as 2 values are changed and one has the [donotlog] attribute so it wont be logged
             }
         }
 
@@ -62,10 +60,9 @@ namespace EFAuditing.TestHarness
 
                 //Act
                 var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
-                _auditLogList.AddRange(result);
-
+                
                 //Assert
-                Assert.Equal(0, _auditLogList.Count());//there should be no results
+                Assert.Equal(0, result.Count());//there should be no results
             }
         }
 
@@ -84,10 +81,9 @@ namespace EFAuditing.TestHarness
 
                 //Act
                 var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
-                _auditLogList.AddRange(result);
-
+                
                 //Assert
-                Assert.Equal(0, _auditLogList.Count());//there should be no results
+                Assert.Equal(0, result.Count());//there should be no results
             }
         }
 
@@ -105,11 +101,10 @@ namespace EFAuditing.TestHarness
 
                 //Act
                 var result = AuditLogBuilder.GetAddedAuditLogs(addedEntry, _currentUser, EntityState.Added);
-                if (result != null)
-                    _auditLogList.Add(result);
+                
 
                 //Assert
-                Assert.Equal(0, _auditLogList.Count());//there should be no results
+                Assert.Equal(null, result);//there should be no results
             }
         }
 
