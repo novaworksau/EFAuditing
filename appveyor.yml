@@ -6,8 +6,6 @@ configuration:
 init:
   - git config --global core.autocrlf input
   
-test: off
-
 before_build:
   - ps: .\Set-PackageLabel.ps1
   - dotnet restore -v minimal
@@ -17,8 +15,17 @@ build:
   parallel: false
   verbosity: minimal
 
-after_build:
-  - dotnet test .\test\EFAuditing.TestHarness
+# after_build:
+#   - dotnet test .\test\EFAuditing.TestHarness
+
+test:
+  assemblies:
+    - '.\test\**\EFAuditing.TestHarness.dll'
+
+  categories:
+    - SanityCheck
+
+after_test:
   - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts .\src\EFAuditing\project.json
 
 artifacts:
