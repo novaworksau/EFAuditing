@@ -28,93 +28,93 @@ namespace EFAuditing.TestHarness
             Assert.Equal(1, 1);
         }
 
-        //[Fact]
-        //public void ShouldAddData()
-        //{
-        //    using (var db = _provider.GetService<TestDbContext>())
-        //    {
-        //        // Arrange
-        //        db.SeedTestData();
-        //        var expectedCount = 5;
+        [Fact]
+        public void ShouldAddData()
+        {
+            using (var db = _provider.GetService<TestDbContext>())
+            {
+                // Arrange
+                db.SeedTestData();
+                var expectedCount = 5;
 
-        //        //// Act
-        //        var customer = new Customer { CustomerId = 5, FirstName = "Misty", LastName = "Shock" };
-        //        db.Customers.Add(customer);
-        //        db.SaveChanges();
-        //        var actualCount = db.Customers.Count();
+                //// Act
+                var customer = new Customer { CustomerId = 5, FirstName = "Misty", LastName = "Shock" };
+                db.Customers.Add(customer);
+                db.SaveChanges();
+                var actualCount = db.Customers.Count();
 
-        //        //// Assert
-        //        Assert.Equal(expectedCount, actualCount);
-        //        Assert.True(true);
-        //    }
-        //}
-
-
-        //[Fact]
-        //public void ShouldRetrieveData()
-        //{
-        //    using (var db = _provider.GetService<TestDbContext>())
-        //    {
-        //        // Arrange
-        //        db.SeedTestData();
-        //        var expectedCount = 4;
-
-        //        // Act
-        //        var actualCount = db.Customers.Count();
-
-        //        // Assert
-        //        Assert.Equal(expectedCount, actualCount);
-        //    }
-        //}
+                //// Assert
+                Assert.Equal(expectedCount, actualCount);
+                Assert.True(true);
+            }
+        }
 
 
-        //[Fact]
-        //public void ShouldDeleteData()
-        //{
-        //    using (var db = _provider.GetService<TestDbContext>())
-        //    {
-        //        // Arrange
-        //        db.SeedTestData();
-        //        var expectedCount = 3;
+        [Fact]
+        public void ShouldRetrieveData()
+        {
+            using (var db = _provider.GetService<TestDbContext>())
+            {
+                // Arrange
+                db.SeedTestData();
+                var expectedCount = 4;
+
+                // Act
+                var actualCount = db.Customers.Count();
+
+                // Assert
+                Assert.Equal(expectedCount, actualCount);
+            }
+        }
 
 
-        //        // Act
-        //        var cust = db.Customers.FirstOrDefault();
-        //        db.Customers.Remove(cust);
-        //        db.SaveChanges();
-        //        var actualCount = db.Customers.Count();
-
-        //        // Assert
-        //        Assert.Equal(expectedCount, actualCount);
-        //    }
-        //}
+        [Fact]
+        public void ShouldDeleteData()
+        {
+            using (var db = _provider.GetService<TestDbContext>())
+            {
+                // Arrange
+                db.SeedTestData();
+                var expectedCount = 3;
 
 
-        //[Fact]
-        //public void ShouldCreateAuditLogs()
-        //{
-        //    using (var db = _provider.GetService<TestDbContext>())
-        //    {
-        //        // Arrange
-        //        var expectedCount = 1;
+                // Act
+                var cust = db.Customers.FirstOrDefault();
+                db.Customers.Remove(cust);
+                db.SaveChanges();
+                var actualCount = db.Customers.Count();
 
-        //        // Act
-        //        var customer = new Customer { CustomerId = 5, FirstName = "Misty", LastName = "Shock" };
-        //        db.Customers.Add(customer);
-        //        db.SaveChanges();
-        //        var auditLogs = db.GetAuditLogs().ToList();
-        //        var first = auditLogs.FirstOrDefault() as AuditLog;
+                // Assert
+                Assert.Equal(expectedCount, actualCount);
+            }
+        }
 
-        //        // Assert
-        //        Assert.Equal(expectedCount, auditLogs.Count);
-        //        Assert.NotNull(first);
 
-        //        var differences = first.Differences;
-        //        var diff = JsonConvert.DeserializeObject<List<PropertyDiff>>(differences);
+        [Fact]
+        public void ShouldCreateAuditLogs()
+        {
+            using (var db = _provider.GetService<TestDbContext>())
+            {
+                // Arrange
+                var expectedCount = 1;
 
-        //        Assert.Equal(diff.Count, 3); // should be 3 fields -> Id, FirstName, LastName
-        //    }
-        //}
+                // Act
+                var customer = new Customer { CustomerId = 5, FirstName = "Misty", LastName = "Shock" };
+                db.Customers.Add(customer);
+                db.SaveChanges();
+                var auditLogs = db.GetAuditLogs().ToList();
+                var first = auditLogs.FirstOrDefault() as AuditLog;
+
+                // Assert
+                Assert.Equal(expectedCount, auditLogs.Count);
+                Assert.NotNull(first);
+
+                var differences = first.Differences;
+                var diff = JsonConvert.DeserializeObject<List<PropertyDiff>>(differences);
+
+                Assert.Equal(diff.Count, 3); // should be 3 fields -> Id, FirstName, LastName
+            }
+        }
 
 
     }
