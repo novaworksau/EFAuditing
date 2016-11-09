@@ -11,6 +11,7 @@ test: auto
 before_build:
   - ps: .\Set-PackageLabel.ps1
   - dotnet restore -v minimal
+  - nuget restore
 
 build:
   project: EFAuditing.sln
