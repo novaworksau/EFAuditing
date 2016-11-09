@@ -5,12 +5,16 @@ configuration:
 
 init:
   - git config --global core.autocrlf input
+  
+install:
+    - ps: Invoke-WebRequest https://api.nuget.org/downloads/nuget.exe -OutFile nuget.exe
 
 test: auto
 
 before_build:
   - ps: .\Set-PackageLabel.ps1
   - dotnet restore -v minimal
+  - nuget restore
 
 build:
   project: EFAuditing.sln
