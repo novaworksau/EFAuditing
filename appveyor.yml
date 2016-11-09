@@ -18,8 +18,8 @@ build:
   parallel: true
   verbosity: minimal
 
-after_build:
-  - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts .\src\EFAuditing\project.json
+#after_build:
+#  - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts .\src\EFAuditing\project.json
 
 artifacts:
   - path: artifacts\*.nupkg
@@ -35,8 +35,3 @@ deploy:
     on:
       configuration: Release
       appveyor_repo_tag: false # do not deploy to this feed on tag push
-
-#environment:
-#  nuget_user: oconicsci
-#  nuget_password:
-#     secure: Xo8KvyMsnePdmUCFmvQjMiNdAyc6qThdZukA+h+herA=
