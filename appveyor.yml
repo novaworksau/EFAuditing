@@ -18,6 +18,7 @@ build:
   verbosity: minimal
 
 after_build:
+  - dotnet build .\test\EFAuditing.TestHarness
   - dotnet test .\test\EFAuditing.TestHarness
   - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts .\src\EFAuditing\project.json
 
