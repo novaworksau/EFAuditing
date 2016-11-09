@@ -14,7 +14,7 @@ before_build:
 
 build:
   project: EFAuditing.sln
-  parallel: true
+  parallel: false
   verbosity: minimal
 
 after_build:
