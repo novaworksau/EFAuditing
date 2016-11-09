@@ -15,14 +15,19 @@ namespace EFAuditing.TestHarness
 
         protected IServiceProvider _provider = null;
         protected string _currentUser = null;
-        List<AuditLog> _auditLogList;
 
         public AutoLogBuilderFixture()
         {
             var fixture = new InMemoryFixture();
             _provider = fixture.GetServiceProvider();
             _currentUser = "tsmith"; // Thread.CurrentPrincipal.Identity.Name;
-            _auditLogList = new List<AuditLog>();
+            
+        }
+
+        [Fact]
+        public void OneEqualsOne()
+        {
+            Assert.Equal(1, 1);
         }
 
         [Fact]
@@ -38,10 +43,10 @@ namespace EFAuditing.TestHarness
 
                 //Act
                 var result = AuditLogBuilder.GetAddedAuditLogs(addedEntityEntry, _currentUser, EntityState.Added);
-                _auditLogList.Add(result);
+               
 
                 //Assert
-                Assert.Equal(1, _auditLogList.Count());
+                Assert.NotNull(result);
             }
         }
 
@@ -60,10 +65,10 @@ namespace EFAuditing.TestHarness
 
                 //Act
                 var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
-                _auditLogList.AddRange(result);
+                
 
                 //Assert
-                Assert.Equal(2, _auditLogList.Count());
+                Assert.Equal(2, result.Count());
             }
         }
 
@@ -81,10 +86,10 @@ namespace EFAuditing.TestHarness
 
                 //Act
                 var result = AuditLogBuilder.GetAddedAuditLogs(deletedEntry, _currentUser, EntityState.Deleted);
-                _auditLogList.Add(result);
+                
 
                 //Assert
-                Assert.Equal(1, _auditLogList.Count());
+                Assert.NotNull(result);
             }
         }
     }
