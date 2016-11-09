@@ -24,6 +24,12 @@ namespace EFAuditing.TestHarness
             _currentUser = "tsmith"; // Thread.CurrentPrincipal.Identity.Name;
         }
 
+        [Fact]
+        public void OneEqualsOne()
+        {
+            Assert.Equal(1, 1);
+        }
+
         //[Fact]
         //public void DoNotAuditModiedEntryProperty()
         //{
