@@ -19,36 +19,36 @@ namespace EFAuditing.TestHarness
         }
 
 
-        //protected IServiceProvider _provider = null;
-        //protected string _currentUser = null;
+        protected IServiceProvider _provider = null;
+        protected string _currentUser = null;
 
-        //public AuditingDbContextFixture()
-        //{
-        //    var fixture = new InMemoryFixture();
-        //    _provider = fixture.GetServiceProvider();
-        //    _currentUser = "dneimke"; // Thread.CurrentPrincipal.Identity.Name;
-        //}
+        public AuditingDbContextFixture()
+        {
+            var fixture = new InMemoryFixture();
+            _provider = fixture.GetServiceProvider();
+            _currentUser = "dneimke"; // Thread.CurrentPrincipal.Identity.Name;
+        }
 
-        //[Fact]
-        //public void ShouldAddData()
-        //{
-        //    using (var db = _provider.GetService<TestDbContext>())
-        //    {
-        //        // Arrange
-        //        db.SeedTestData();
-        //        var expectedCount = 5;
+        [Fact]
+        public void ShouldAddData()
+        {
+            using (var db = _provider.GetService<TestDbContext>())
+            {
+                // Arrange
+                db.SeedTestData();
+                var expectedCount = 5;
 
-        //        //// Act
-        //        var customer = new Customer { CustomerId = 5, FirstName = "Misty", LastName = "Shock" };
-        //        db.Customers.Add(customer);
-        //        db.SaveChanges();
-        //        var actualCount = db.Customers.Count();
+                //// Act
+                var customer = new Customer { CustomerId = 5, FirstName = "Misty", LastName = "Shock" };
+                db.Customers.Add(customer);
+                db.SaveChanges();
+                var actualCount = db.Customers.Count();
 
-        //        //// Assert
-        //        Assert.Equal(expectedCount, actualCount);
-        //        Assert.True(true);
-        //    }
-        //}
+                //// Assert
+                Assert.Equal(expectedCount, actualCount);
+                Assert.True(true);
+            }
+        }
 
 
         //[Fact]
