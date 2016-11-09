@@ -15,18 +15,11 @@ build:
   parallel: false
   verbosity: minimal
 
-# after_build:
-#   - dotnet test .\test\EFAuditing.TestHarness
-
-test:
-  assemblies:
-    - '.\test\**\EFAuditing.TestHarness.dll'
-
-  categories:
-    - SanityCheck
-
-after_test:
+after_build:
+  - dotnet test .\test\EFAuditing.TestHarness -trait "name=A"
   - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts .\src\EFAuditing\project.json
+
+test: off
 
 artifacts:
   - path: artifacts\*.nupkg
