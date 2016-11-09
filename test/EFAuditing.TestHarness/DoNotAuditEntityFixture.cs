@@ -24,89 +24,89 @@ namespace EFAuditing.TestHarness
             _currentUser = "tsmith"; // Thread.CurrentPrincipal.Identity.Name;
         }
 
-        [Fact]
-        public void DoNotAuditModiedEntryProperty()
-        {
-            //This test ensures that only the properties without the donotaudit attribute are logged
-            using (var db = _provider.GetService<TestDbContext>())
-            {
-                //Arrange
-                db.SeedTestData();
-                var customer = db.CustomerNoAuditProperty.First();
-                customer.FirstName = "Susan";
-                customer.LastName = "Smith";//This value should not be logged as it is annotated with [donotlog]
-                var modifiedEntry = db.ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).First();
+        //[Fact]
+        //public void DoNotAuditModiedEntryProperty()
+        //{
+        //    //This test ensures that only the properties without the donotaudit attribute are logged
+        //    using (var db = _provider.GetService<TestDbContext>())
+        //    {
+        //        //Arrange
+        //        db.SeedTestData();
+        //        var customer = db.CustomerNoAuditProperty.First();
+        //        customer.FirstName = "Susan";
+        //        customer.LastName = "Smith";//This value should not be logged as it is annotated with [donotlog]
+        //        var modifiedEntry = db.ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).First();
 
-                //Act
-                var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
+        //        //Act
+        //        var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
                 
-                //Assert
-                Assert.Equal(1, result.Count());//this should pass as 2 values are changed and one has the [donotlog] attribute so it wont be logged
-            }
-        }
+        //        //Assert
+        //        Assert.Equal(1, result.Count());//this should pass as 2 values are changed and one has the [donotlog] attribute so it wont be logged
+        //    }
+        //}
 
-        [Fact]
-        public void DoNotAuditModifedEntry()
-        {
-            //This test ensures that only the properties without the donotaudit attribute are logged
-            using (var db = _provider.GetService<TestDbContext>())
-            {
-                //Arrange
-                db.SeedTestData();
-                var customer = db.CustomerNoAuditEntity.First();
-                customer.FirstName = "Susan";
-                customer.LastName = "Smith";
-                var modifiedEntry = db.ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).First();
+        //[Fact]
+        //public void DoNotAuditModifedEntry()
+        //{
+        //    //This test ensures that only the properties without the donotaudit attribute are logged
+        //    using (var db = _provider.GetService<TestDbContext>())
+        //    {
+        //        //Arrange
+        //        db.SeedTestData();
+        //        var customer = db.CustomerNoAuditEntity.First();
+        //        customer.FirstName = "Susan";
+        //        customer.LastName = "Smith";
+        //        var modifiedEntry = db.ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).First();
 
-                //Act
-                var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
+        //        //Act
+        //        var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
                 
-                //Assert
-                Assert.Equal(0, result.Count());//there should be no results
-            }
-        }
+        //        //Assert
+        //        Assert.Equal(0, result.Count());//there should be no results
+        //    }
+        //}
 
-        [Fact]
-        public void DoNotAuditModiedEntryWithBase()
-        {
-            //This test ensures that only the properties without the donotaudit attribute are logged
-            using (var db = _provider.GetService<TestDbContext>())
-            {
-                //Arrange
-                db.SeedTestData();
-                var customer = db.CustomerInheritedFromBase.First();
-                customer.FirstName = "Susan";
-                customer.LastName = "Smith";
-                var modifiedEntry = db.ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).First();
+        //[Fact]
+        //public void DoNotAuditModiedEntryWithBase()
+        //{
+        //    //This test ensures that only the properties without the donotaudit attribute are logged
+        //    using (var db = _provider.GetService<TestDbContext>())
+        //    {
+        //        //Arrange
+        //        db.SeedTestData();
+        //        var customer = db.CustomerInheritedFromBase.First();
+        //        customer.FirstName = "Susan";
+        //        customer.LastName = "Smith";
+        //        var modifiedEntry = db.ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).First();
 
-                //Act
-                var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
+        //        //Act
+        //        var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
                 
-                //Assert
-                Assert.Equal(0, result.Count());//there should be no results
-            }
-        }
+        //        //Assert
+        //        Assert.Equal(0, result.Count());//there should be no results
+        //    }
+        //}
 
-        [Fact]
-        public void DoNotAuditAddedEntryWithBaseAndDoNotLog()
-        {
-            //This test ensures that only the properties without the donotaudit attribute are logged
-            using (var db = _provider.GetService<TestDbContext>())
-            {
-                //Arrange
-                db.SeedTestData();
-                CustomerInheritedFromBase customer = new CustomerInheritedFromBase { CustomerId = 10, FirstName = "Simon", LastName = "Shaw" };
-                db.CustomerInheritedFromBase.Add(customer);
-                var addedEntry = db.ChangeTracker.Entries().Where(p => p.State == EntityState.Added).First();
+        //[Fact]
+        //public void DoNotAuditAddedEntryWithBaseAndDoNotLog()
+        //{
+        //    //This test ensures that only the properties without the donotaudit attribute are logged
+        //    using (var db = _provider.GetService<TestDbContext>())
+        //    {
+        //        //Arrange
+        //        db.SeedTestData();
+        //        CustomerInheritedFromBase customer = new CustomerInheritedFromBase { CustomerId = 10, FirstName = "Simon", LastName = "Shaw" };
+        //        db.CustomerInheritedFromBase.Add(customer);
+        //        var addedEntry = db.ChangeTracker.Entries().Where(p => p.State == EntityState.Added).First();
 
-                //Act
-                var result = AuditLogBuilder.GetAddedAuditLogs(addedEntry, _currentUser, EntityState.Added);
+        //        //Act
+        //        var result = AuditLogBuilder.GetAddedAuditLogs(addedEntry, _currentUser, EntityState.Added);
                 
 
-                //Assert
-                Assert.Equal(null, result);//there should be no results
-            }
-        }
+        //        //Assert
+        //        Assert.Equal(null, result);//there should be no results
+        //    }
+        //}
 
         //[Fact]
         //public void DoNotAuditDeletedEntryWithBaseAndDoNotLog()
