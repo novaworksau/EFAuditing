@@ -20,6 +20,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EFAuditing.SampleExtensions
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EFAuditing.TestHarness", "test\EFAuditing.TestHarness\EFAuditing.TestHarness.xproj", "{EEF76714-3C80-4BA6-A12A-4907832F449F}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EFAuditing.Core", "src\EFAuditing.Core\EFAuditing.Core.xproj", "{1D5B111C-48EB-4895-B0C1-5EC9B3640871}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{EEF76714-3C80-4BA6-A12A-4907832F449F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEF76714-3C80-4BA6-A12A-4907832F449F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEF76714-3C80-4BA6-A12A-4907832F449F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D5B111C-48EB-4895-B0C1-5EC9B3640871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D5B111C-48EB-4895-B0C1-5EC9B3640871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D5B111C-48EB-4895-B0C1-5EC9B3640871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D5B111C-48EB-4895-B0C1-5EC9B3640871}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +50,6 @@ Global
 		{453B5445-98B1-4E3D-B2A2-ECEBFB8B75CF} = {F4BE06D6-385B-46C9-A637-B8C728AC9AC7}
 		{47146269-2F80-4131-9349-4DCB7EF2293F} = {F4BE06D6-385B-46C9-A637-B8C728AC9AC7}
 		{EEF76714-3C80-4BA6-A12A-4907832F449F} = {F4BE06D6-385B-46C9-A637-B8C728AC9AC7}
+		{1D5B111C-48EB-4895-B0C1-5EC9B3640871} = {F4BE06D6-385B-46C9-A637-B8C728AC9AC7}
 	EndGlobalSection
 EndGlobal

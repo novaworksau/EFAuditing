@@ -1,0 +1,31 @@
+﻿{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    
+  },
+
+  "frameworks": {
+    "net45": {
+      "frameworkAssemblies": {
+        "System.ComponentModel.DataAnnotations": "4.0.0.0"
+      }
+    },
+    "net451": {
+      "frameworkAssemblies": {
+        "System.ComponentModel.DataAnnotations": "4.0.0.0"
+      }
+    },
+    "netstandard1.3": {
+      "imports": [
+        "dotnet5.4",
+        "dnxcore50",
+        "portable-net452+win8"
+      ],
+      "dependencies": {
+        "System.ComponentModel.Annotations": "4.1.0",
+        "NETStandard.Library": "1.6.0"
+      }
+    }
+  }
+}
