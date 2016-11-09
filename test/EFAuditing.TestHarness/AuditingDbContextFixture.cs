@@ -1,5 +1,4 @@
-﻿using EFAuditing.SampleExtensions;
-using EFAuditing.TestHarness.Helpers;
+﻿using EFAuditing.TestHarness.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
@@ -97,7 +96,7 @@ namespace EFAuditing.TestHarness
                 db.Customers.Add(customer);
                 db.SaveChanges();
                 var auditLogs = db.GetAuditLogs().ToList();
-                var first = auditLogs.FirstOrDefault() as CustomAuditLog;
+                var first = auditLogs.FirstOrDefault() as AuditLog;
 
                 // Assert
                 Assert.Equal(expectedCount, auditLogs.Count);

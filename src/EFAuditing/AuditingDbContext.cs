@@ -23,6 +23,7 @@ namespace EFAuditing
         private readonly string _auditSchemaName;
         private readonly IExternalAuditStoreProvider _externalAuditStoreProvider;
         private readonly IAuditLogBuilder _auditLogBuilder;
+     
 
         private bool ExternalProviderSpecified => _externalAuditStoreProvider != null;
 
@@ -48,11 +49,13 @@ namespace EFAuditing
         ///     method will be called to configure the database (and other options) to be used
         ///     for this context.
         /// </summary>
-        protected AuditingDbContext(IExternalAuditStoreProvider externalAuditStoreProvider, IAuditLogBuilder auditLogBuilder)
+        protected AuditingDbContext(IExternalAuditStoreProvider externalAuditStoreProvider, IAuditLogBuilder auditLogBuilder, DbContextOptions options) : base(options)
         {
             _externalAuditStoreProvider = externalAuditStoreProvider;
             _auditLogBuilder = auditLogBuilder;
         }
+
+        
 
         /// <summary>
         ///     Initializes a new instance of the AuditingDbContext class (Extends Microsoft.Data.Entity.DbContext). 
@@ -63,7 +66,7 @@ namespace EFAuditing
         /// </summary>
         /// <param name="auditTableName">SQL Table Name</param>
         /// <param name="auditSchemaName">SQL Schema Name</param>
-        protected AuditingDbContext(string auditTableName, string auditSchemaName)
+        protected AuditingDbContext(string auditTableName, string auditSchemaName, DbContextOptions options) : base(options)
         {
             _auditTableName = auditTableName;
             _auditSchemaName = auditSchemaName;
@@ -77,6 +80,7 @@ namespace EFAuditing
         /// <param name="options">The options for this context.</param>
         protected AuditingDbContext(DbContextOptions options) : base(options)
         {
+            
         }
 
         /// <summary>
@@ -233,8 +237,12 @@ namespace EFAuditing
             }
             else
             {
-                Set<AuditLog>().AddRange(auditLogs);
-                base.SaveChanges();
+                if(auditLogs.Count() > 0)
+                {
+                    Set<AuditLog>().AddRange(auditLogs);
+                    base.SaveChanges();
+                }
+                
             }
             return result;
         }

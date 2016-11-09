@@ -1,5 +1,4 @@
-﻿using EFAuditing.SampleExtensions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,15 +16,17 @@ namespace EFAuditing.TestHarness.Helpers
         {
             var services = new ServiceCollection();
 
-            services
-                .AddEntityFramework()
-                //.AddInMemoryDatabase()
-                .AddDbContext<TestDbContext>(options =>
-                    options.UseInMemoryDatabase()
-                );
-            
             services.AddScoped<IExternalAuditStoreProvider, TestableDbAuditStoreProvider>();
-            services.AddScoped<IAuditLogBuilder, CustomAuditLogBuilder>();
+            services.AddScoped<IAuditLogBuilder, AuditLogBuilder>();
+
+            _serviceProvider = services.BuildServiceProvider();
+
+            services
+               .AddEntityFrameworkInMemoryDatabase()
+               .AddDbContext<TestDbContext>(options => {
+                   options.UseInMemoryDatabase();
+                   options.UseInternalServiceProvider(_serviceProvider);
+               });
 
             _serviceProvider = services.BuildServiceProvider();
         }

@@ -19,9 +19,14 @@ namespace EFAuditing
     {
         private const string KeySeperator = ";";
 
-        private static IEnumerable<AuditLog> GetAuditLogs(EntityEntry entityEntry, string userName, EntityState entityState)
+        public static IEnumerable<AuditLog> GetAuditLogs(EntityEntry entityEntry, string userName, EntityState entityState)
         {
             var returnValue = new List<PropertyLevelAuditLog>();
+
+            var isDoNotAuditEntity = entityEntry.Entity.GetType().GetTypeInfo().GetCustomAttributes<DoNotAudit>();
+            if (isDoNotAuditEntity.Count() > 0)
+                return returnValue;
+
             var keyRepresentation = BuildKeyRepresentation(entityEntry, KeySeperator);
             DateTime RightNow = DateTime.Now;
             //Guid gets created for each change set.
@@ -29,7 +34,6 @@ namespace EFAuditing
 
             //this is the list that will be serialized
             var differences = new List<PropertyDiff>();
-
 
             var auditedPropertyNames =
                 entityEntry.Entity.GetType()
@@ -75,8 +79,13 @@ namespace EFAuditing
             return returnValue;
         }
 
-        private AuditLog GetAddedAuditLogs(EntityEntry entityEntry, string userName, EntityState entityState)
+        public static AuditLog GetAddedAuditLogs(EntityEntry entityEntry, string userName, EntityState entityState)
         {
+
+            var isDoNotAuditEntity = entityEntry.Entity.GetType().GetTypeInfo().GetCustomAttributes<DoNotAudit>();
+            if (isDoNotAuditEntity.Count() > 0)
+                return null;
+
             var keyRepresentation = BuildKeyRepresentation(entityEntry, KeySeperator);
             DateTime RightNow = DateTime.Now;
             //Guid gets created for each change set.
@@ -120,8 +129,13 @@ namespace EFAuditing
         }
 
 
-        private AuditLog GetDeletedAuditLogs(EntityEntry entityEntry, string userName, EntityState entityState)
+        public static AuditLog GetDeletedAuditLogs(EntityEntry entityEntry, string userName, EntityState entityState)
         {
+
+            var isDoNotAuditEntity = entityEntry.Entity.GetType().GetTypeInfo().GetCustomAttributes<DoNotAudit>();
+            if (isDoNotAuditEntity.Count() > 0)
+                return null;
+
             var keyRepresentation = BuildKeyRepresentation(entityEntry, KeySeperator);
             DateTime RightNow = DateTime.Now;
             //Guid gets created for each change set.
@@ -199,6 +213,7 @@ namespace EFAuditing
                     addedEntityEntries.Select(
                         changedEntity => GetAddedAuditLogs(changedEntity, userName, EntityState.Added)))
                 auditLogs.Add(auditRecordsForEntityEntry);
+
             return auditLogs;
         }
 
