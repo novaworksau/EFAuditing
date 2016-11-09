@@ -24,7 +24,7 @@ namespace EFAuditing.TestHarness
             _currentUser = "tsmith"; // Thread.CurrentPrincipal.Identity.Name;
         }
 
-        [Fact]
+        [Fact, Trait("Category", "SanityCheck")]
         public void OneEqualsOne()
         {
             Assert.Equal(1, 1);

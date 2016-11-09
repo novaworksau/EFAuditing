@@ -24,13 +24,13 @@ namespace EFAuditing.TestHarness
             
         }
 
-        [Fact]
+        [Fact, Trait("Category", "SanityCheck")]
         public void OneEqualsOne()
         {
             Assert.Equal(1, 1);
         }
 
-        [Fact]
+        [Fact, Trait("Category", "A")]
         public void GetAddedAuditLogsTest()
         {
             //This test ensures only one log is created for an Added Entity Entry
@@ -50,7 +50,7 @@ namespace EFAuditing.TestHarness
             }
         }
 
-        [Fact]
+        [Fact, Trait("Category", "A")]
         public void GetModifiedAuditLogsTest()
         {
             //This test ensures that one log is create for each property changed
@@ -72,7 +72,7 @@ namespace EFAuditing.TestHarness
             }
         }
 
-        [Fact]
+        [Fact, Trait("Category", "A")]
         public void GetDeletedAuditLogsTest()
         {
             //This test ensures only one log is created for a Deleted Entity Entry

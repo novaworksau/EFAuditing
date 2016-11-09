@@ -12,13 +12,6 @@ namespace EFAuditing.TestHarness
     public class AuditingDbContextFixture
     {
 
-        [Fact]
-        public void OneEqualsOne()
-        {
-            Assert.Equal(1, 1);
-        }
-
-
         protected IServiceProvider _provider = null;
         protected string _currentUser = null;
 
@@ -27,6 +20,12 @@ namespace EFAuditing.TestHarness
             var fixture = new InMemoryFixture();
             _provider = fixture.GetServiceProvider();
             _currentUser = "dneimke"; // Thread.CurrentPrincipal.Identity.Name;
+        }
+
+        [Fact, Trait("Category", "SanityCheck")]
+        public void OneEqualsOne()
+        {
+            Assert.Equal(1, 1);
         }
 
         //[Fact]
