@@ -128,11 +128,9 @@ namespace EFAuditing.TestHarness
 
                 //Act
                 var result = AuditLogBuilder.GetDeletedAuditLogs(deletedEntry, _currentUser, EntityState.Deleted);
-                if (result != null)
-                    _auditLogList.Add(result);
-
+                
                 //Assert
-                Assert.Equal(0, _auditLogList.Count());//there should be no results
+                Assert.Null(result);//there should be no results
             }
         }
     }
