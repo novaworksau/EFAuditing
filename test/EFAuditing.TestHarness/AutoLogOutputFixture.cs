@@ -21,7 +21,7 @@ namespace EFAuditing.TestHarness
             _currentUser = "tsmith"; // Thread.CurrentPrincipal.Identity.Name;
         }
 
-        [Fact]
+        [Fact, Trait("Category", "SanityCheck")]
         public void CheckChangeTrackingOutputEntryResult()
         {
             //This test ensures that only the properties without the donotaudit attribute are logged
@@ -45,7 +45,7 @@ namespace EFAuditing.TestHarness
             }
         }
 
-        [Fact]
+        [Fact, Trait("Category", "SanityCheck")]
         public void CheckChangeTrackingOutputEntryResultWithBaseClass()
         {
             //This test ensures that only the properties without the donotaudit attribute are logged
