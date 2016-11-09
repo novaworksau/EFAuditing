@@ -6,15 +6,11 @@ configuration:
 init:
   - git config --global core.autocrlf input
   
-install:
-    - ps: Invoke-WebRequest https://api.nuget.org/downloads/nuget.exe -OutFile nuget.exe
-
-test: auto
+test: off
 
 before_build:
   - ps: .\Set-PackageLabel.ps1
   - dotnet restore -v minimal
-  - nuget restore
 
 build:
   project: EFAuditing.sln
@@ -22,6 +18,7 @@ build:
   verbosity: minimal
 
 after_build:
+  - dotnet test .\test\EFAuditing.TestHarness
   - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts .\src\EFAuditing\project.json
 
 artifacts:
