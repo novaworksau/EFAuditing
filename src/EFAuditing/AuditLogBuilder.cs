@@ -212,7 +212,11 @@ namespace EFAuditing
                 var auditRecordsForEntityEntry in
                     addedEntityEntries.Select(
                         changedEntity => GetAddedAuditLogs(changedEntity, userName, EntityState.Added)))
-                auditLogs.Add(auditRecordsForEntityEntry);
+            {
+                if(auditRecordsForEntityEntry != null)
+                    auditLogs.Add(auditRecordsForEntityEntry);
+            }
+                
 
             return auditLogs;
         }
@@ -224,7 +228,11 @@ namespace EFAuditing
            var auditRecordsForEntityEntry in
                deletedEntityEntries.Select(
                    changedEntity => GetDeletedAuditLogs(changedEntity, userName, EntityState.Deleted)))
-                auditLogs.Add(auditRecordsForEntityEntry);
+            {
+                if (auditRecordsForEntityEntry != null)
+                    auditLogs.Add(auditRecordsForEntityEntry);
+            }
+                
 
             return auditLogs;
         }

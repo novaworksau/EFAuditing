@@ -55,6 +55,17 @@ namespace EFAuditing.TestHarness.Helpers
 
                 dbContext.SaveChanges();
             }
+
+            if (!dbContext.CustomerInheritedFromBaseForAuditing.Any())
+            {
+                // refer: https://en.wikipedia.org/wiki/Contoso#Contoso_employees
+                dbContext.CustomerInheritedFromBaseForAuditing.AddRange(
+                    new CustomerInheritedFromBaseForAuditing { FirstName = "Toby", LastName = "Shallis" },
+                    new CustomerInheritedFromBaseForAuditing { FirstName = "Ravi", LastName = "Jones" }
+                    );
+
+                dbContext.SaveChanges();
+            }
         }
     }
 }
