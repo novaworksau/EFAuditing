@@ -30,26 +30,26 @@ namespace EFAuditing.TestHarness
             Assert.Equal(1, 1);
         }
 
-        //[Fact]
-        //public void DoNotAuditModiedEntryProperty()
-        //{
-        //    //This test ensures that only the properties without the donotaudit attribute are logged
-        //    using (var db = _provider.GetService<TestDbContext>())
-        //    {
-        //        //Arrange
-        //        db.SeedTestData();
-        //        var customer = db.CustomerNoAuditProperty.First();
-        //        customer.FirstName = "Susan";
-        //        customer.LastName = "Smith";//This value should not be logged as it is annotated with [donotlog]
-        //        var modifiedEntry = db.ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).First();
+        [Fact]
+        public void DoNotAuditModiedEntryProperty()
+        {
+            //This test ensures that only the properties without the donotaudit attribute are logged
+            using (var db = _provider.GetService<TestDbContext>())
+            {
+                //Arrange
+                db.SeedTestData();
+                var customer = db.CustomerNoAuditProperty.First();
+                customer.FirstName = "Susan";
+                customer.LastName = "Smith";//This value should not be logged as it is annotated with [donotlog]
+                var modifiedEntry = db.ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).First();
 
-        //        //Act
-        //        var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
-                
-        //        //Assert
-        //        Assert.Equal(1, result.Count());//this should pass as 2 values are changed and one has the [donotlog] attribute so it wont be logged
-        //    }
-        //}
+                //Act
+                var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
+
+                //Assert
+                Assert.Equal(1, result.Count());//this should pass as 2 values are changed and one has the [donotlog] attribute so it wont be logged
+            }
+        }
 
         //[Fact]
         //public void DoNotAuditModifedEntry()
@@ -66,7 +66,7 @@ namespace EFAuditing.TestHarness
 
         //        //Act
         //        var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
-                
+
         //        //Assert
         //        Assert.Equal(0, result.Count());//there should be no results
         //    }
@@ -87,7 +87,7 @@ namespace EFAuditing.TestHarness
 
         //        //Act
         //        var result = AuditLogBuilder.GetAuditLogs(modifiedEntry, _currentUser, EntityState.Modified);
-                
+
         //        //Assert
         //        Assert.Equal(0, result.Count());//there should be no results
         //    }
@@ -107,7 +107,7 @@ namespace EFAuditing.TestHarness
 
         //        //Act
         //        var result = AuditLogBuilder.GetAddedAuditLogs(addedEntry, _currentUser, EntityState.Added);
-                
+
 
         //        //Assert
         //        Assert.Equal(null, result);//there should be no results
