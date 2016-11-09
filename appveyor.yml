@@ -6,10 +6,8 @@ configuration:
 init:
   - git config --global core.autocrlf input
 
-test:
-  assemblies:
-    - '**\EFAuditing.TestHarness.dll'
-
+test: auto
+ 
 before_build:
   - ps: .\Set-PackageLabel.ps1
   - dotnet restore -v minimal
