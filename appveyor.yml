@@ -7,8 +7,7 @@ init:
   - git config --global core.autocrlf input
 
 test:
-  assemblies:
-    - '**\*.EFAuditing.TestHarness.dll'
+  assemblies: Auto
 
 before_build:
   - ps: .\Set-PackageLabel.ps1
