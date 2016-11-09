@@ -12,11 +12,6 @@ before_build:
   - ps: .\Set-PackageLabel.ps1
   - dotnet restore -v minimal
 
-build:
-  project: EFAuditing.sln
-  parallel: false
-  verbosity: minimal
-
 after_build:
   - dotnet build .\test\EFAuditing.TestHarness
   - dotnet test .\test\EFAuditing.TestHarness
