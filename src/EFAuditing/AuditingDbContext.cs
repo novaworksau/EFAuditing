@@ -210,6 +210,9 @@ namespace EFAuditing
 
         public override int SaveChanges()
         {
+            AuditLogBuilder _auditLogBuilder = new AuditLogBuilder();
+
+            var auditLogs = new List<AuditLog>();
             //change to Novaworks Identity User
             string userName = "Change This User With NovaworksCurrentUser";
             var addedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Added).ToList();
@@ -217,13 +220,17 @@ namespace EFAuditing
             var deletedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted).ToList();
 
             //if is softdelete than deleted entities will get store using the updateAuditLogsForexiting.... else deleteAuditLogsForExisting...
-            var auditLogs = _auditLogBuilder.GetAuditLogsForExistingEntities(userName, modifiedEntityEntries);
+            if(modifiedEntityEntries.Count() > 0)
+                  auditLogs = _auditLogBuilder.GetAuditLogsForExistingEntities(userName, modifiedEntityEntries);
+
 
             var result = base.SaveChanges();
 
-            auditLogs.AddRange(_auditLogBuilder.GetAuditLogsForAddedEntities(userName, addedEntityEntries));
+            if(addedEntityEntries.Count() > 0)
+                 auditLogs.AddRange(_auditLogBuilder.GetAuditLogsForAddedEntities(userName, addedEntityEntries));
 
-            auditLogs.AddRange(_auditLogBuilder.GetAuditLogsForDeletedEntities(userName, deletedEntityEntries));
+            if(deletedEntityEntries.Count() > 0)
+                 auditLogs.AddRange(_auditLogBuilder.GetAuditLogsForDeletedEntities(userName, deletedEntityEntries));
 
             if (ExternalProviderSpecified)
             {

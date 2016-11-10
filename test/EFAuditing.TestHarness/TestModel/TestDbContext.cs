@@ -21,5 +21,7 @@ namespace EFAuditing.TestHarness
         public DbSet<CustomerNoAuditEntity> CustomerNoAuditEntity { get; set; }
 
         public DbSet<CustomerInheritedFromBase> CustomerInheritedFromBase { get; set; }
+
+        public DbSet<CustomerInheritedFromBaseForAuditing> CustomerInheritedFromBaseForAuditing { get; set; }
     }
 }
