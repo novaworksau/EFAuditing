@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Linq;
+using System.Security.Principal;
 
 namespace EFAuditing
 {
@@ -23,7 +24,6 @@ namespace EFAuditing
         private readonly string _auditSchemaName;
         private readonly IExternalAuditStoreProvider _externalAuditStoreProvider;
         private readonly IAuditLogBuilder _auditLogBuilder;
-     
 
         private bool ExternalProviderSpecified => _externalAuditStoreProvider != null;
 
@@ -80,7 +80,7 @@ namespace EFAuditing
         /// <param name="options">The options for this context.</param>
         protected AuditingDbContext(DbContextOptions options) : base(options)
         {
-            
+            _auditLogBuilder = new AuditLogBuilder();
         }
 
         /// <summary>
@@ -207,22 +207,14 @@ namespace EFAuditing
         /// </returns>
         /// 
 
-
-        public override int SaveChanges()
+        public int SaveChanges(string username = "")
         {
-            AuditLogBuilder _auditLogBuilder = new AuditLogBuilder();
-
             var auditLogs = new List<AuditLog>();
-            //change to Novaworks Identity User
-            string userName = "Change This User With NovaworksCurrentUser";
+
+            string userName = username;
+
             var addedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Added).ToList();
-            var modifiedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Modified).ToList();
             var deletedEntityEntries = ChangeTracker.Entries().Where(p => p.State == EntityState.Deleted).ToList();
-
-            //if is softdelete than deleted entities will get store using the updateAuditLogsForexiting.... else deleteAuditLogsForExisting...
-            if(modifiedEntityEntries.Count() > 0)
-                  auditLogs = _auditLogBuilder.GetAuditLogsForExistingEntities(userName, modifiedEntityEntries);
-
 
             var result = base.SaveChanges();
 

@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFAuditing
 {
+    [DoNotAudit]
     public class AuditLog
     {
         [Key]
