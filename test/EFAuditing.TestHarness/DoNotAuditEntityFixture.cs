@@ -1,12 +1,10 @@
 ﻿using EFAuditing.TestHarness.Helpers;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
-using Microsoft.Extensions.DependencyInjection;
 using EFAuditing.TestHarness.TestModel;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Linq;
+using Xunit;
 
 namespace EFAuditing.TestHarness
 {
