@@ -28,7 +28,7 @@ namespace EFAuditing.TestHarness
             Assert.Equal(1, 1);
         }
 
-        [Fact]
+        [Fact, Trait("Category", "C")]
         public void DoNotAuditModiedEntryProperty()
         {
             //This test ensures that only the properties without the donotaudit attribute are logged
@@ -49,7 +49,7 @@ namespace EFAuditing.TestHarness
             }
         }
 
-        [Fact]
+        [Fact, Trait("Category", "C")]
         public void DoNotAuditModifedEntry()
         {
             //This test ensures that only the properties without the donotaudit attribute are logged
@@ -70,7 +70,7 @@ namespace EFAuditing.TestHarness
             }
         }
 
-        [Fact]
+        [Fact, Trait("Category", "C")]
         public void DoNotAuditModiedEntryWithBase()
         {
             //This test ensures that only the properties without the donotaudit attribute are logged
@@ -91,7 +91,7 @@ namespace EFAuditing.TestHarness
             }
         }
 
-        [Fact]
+        [Fact, Trait("Category", "C")]
         public void DoNotAuditAddedEntryWithBaseAndDoNotLog()
         {
             //This test ensures that only the properties without the donotaudit attribute are logged
@@ -112,7 +112,7 @@ namespace EFAuditing.TestHarness
             }
         }
 
-        [Fact]
+        [Fact, Trait("Category", "C")]
         public void DoNotAuditDeletedEntryWithBaseAndDoNotLog()
         {
             //This test ensures that only the properties without the donotaudit attribute are logged
