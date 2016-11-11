@@ -16,6 +16,7 @@ build:
   verbosity: minimal
 
 after_build:
+  - dotnet test .\test\EFAuditing.TestHarness -trait "Category=SanityCheck"
   - dotnet test .\test\EFAuditing.TestHarness -trait "Category=A"
   - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts .\src\EFAuditing\project.json
   - dotnet pack -c %CONFIGURATION% --no-build --version-suffix %LABEL% -o artifacts .\src\EFAuditing.Core\project.json
