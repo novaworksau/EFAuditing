@@ -11,7 +11,7 @@
   "version": "1.0.6",
 
   "dependencies": {
-    "EFAuditing.Core": "1.0.0-*",
+    "EFAuditing.Core": "1.0.6",
     "Microsoft.EntityFrameworkCore": "1.0.0",
     "Microsoft.EntityFrameworkCore.Relational": "1.0.0",
     "Newtonsoft.Json": "9.0.1"
