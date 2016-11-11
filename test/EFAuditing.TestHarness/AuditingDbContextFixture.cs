@@ -28,7 +28,7 @@ namespace EFAuditing.TestHarness
             Assert.Equal(1, 1);
         }
 
-        [Fact]
+        [Fact, Trait("Category", "B")]
         public void ShouldAddData()
         {
             using (var db = _provider.GetService<TestDbContext>())
