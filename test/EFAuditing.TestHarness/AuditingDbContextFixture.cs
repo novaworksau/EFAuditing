@@ -90,7 +90,7 @@ namespace EFAuditing.TestHarness
         }
 
 
-        [Fact]
+        [Fact, Trait("Category", "B")]
         public void ShouldCreateAuditLogs()
         {
             using (var db = _provider.GetService<TestDbContext>())
