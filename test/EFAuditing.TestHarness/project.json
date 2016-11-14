@@ -1,10 +1,10 @@
 {
-  "version": "1.0.0-*",
+  "version": "2.0.0-*",
   "testRunner": "xunit",
   "dependencies": {
     "xunit": "2.2.0-beta2-build3300",
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
-    "EFAuditing": "1.0.6",
+    "EFAuditing": "2.0.0-*",
     "Microsoft.EntityFrameworkCore.InMemory": "1.0.1",
     "Microsoft.EntityFrameworkCore": "1.0.1"
   },
